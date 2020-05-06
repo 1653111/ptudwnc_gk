@@ -1,29 +1,27 @@
-import React, {useState} from 'react';
-import {Container, Row, Col} from 'react-bootstrap';
-import CovidMap from './CovidMap';
-import PatientList from './PatientList';
+import React, {useEffect, useState} from 'react';
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import CovidGoogleMap from "./CovidGoogleMap";
+import PatientInfo from "./PatientInfo";
+import Container from "react-bootstrap/Container";
+import CovidMap from "./CovidMap";
 
-const CovidDashboard = () => {
-    const [patients, setPatients] = useState([]);
-    const [currentPatient, setCurrentPatient] = useState(null);
-    const markerClickedHandler = (patient) => {
+const CovidDashboard = (props) => {
+    const [currentPatient, setCurrentPatient] = useState();
+    const patientMarkerClickedHandler = (patient) => {
         setCurrentPatient(patient);
     }
-    const fetchPatientsHandler = (patients) => {
-        setPatients(patients);
-    }
-    const listItemClickedhandler = (patient) => {
-        setCurrentPatient(patient)
-    }
-
-    return (
-        <Container>
-            <Row>
-                <Col xs={8}><CovidMap patients={patients} currentPatient={currentPatient} onMarkerClicked={markerClickedHandler} onFetchPatients={fetchPatientsHandler}/></Col>
-                <Col xs={4}><PatientList patients={patients} currentPatient={currentPatient} onListItemClicked={listItemClickedhandler}/></Col>
-            </Row>
-        </Container>
-    );
-}
+    console.log('Covid Dashboard render');
+    return <Container>
+        <Row>
+            <Col xs={10}><CovidMap onPatientMarkerClicked={patientMarkerClickedHandler}/></Col>
+            <Col xs={2}>
+                {currentPatient &&
+                <PatientInfo name={currentPatient.name} address={currentPatient.address} note={currentPatient.note}
+                             verifyDate={currentPatient.verifyDate}/>}
+            </Col>
+        </Row>
+    </Container>
+};
 
 export default CovidDashboard;

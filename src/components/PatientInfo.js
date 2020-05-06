@@ -1,15 +1,12 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
-const PatientInfo = ({name, address, note, verifyDate, ref}) => {
-    let verifyDateString = "" + verifyDate.getDate() + "/" + verifyDate.getMonth() + "/" + verifyDate.getFullYear();
-    return (
-        <ul>
-            <li ref={ref}>Tên: {name}</li>
-            <li>Địa chỉ nơi bệnh nhân tiếp xúc: {address}</li>
-            <li>Ngày phát hiện: {verifyDateString}</li>
-            <li>Ghi chú: {note}</li>
-        </ul>
-    );
-}
+const PatientInfo = ({name, address, note, verifyDate}) => {
+    return <ul>
+        <li>Name: {name}</li>
+        <li>Address: {address}</li>
+        <li>Note: {note}</li>
+        <li>Verify Date: {verifyDate}</li>
+    </ul>
+};
 
 export default PatientInfo;

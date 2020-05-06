@@ -1,55 +1,40 @@
 import React, {useEffect, useState} from 'react';
-import {compose, withProps} from "recompose"
-import {withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow} from "react-google-maps";
-import PatientInfo from './PatientInfo';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
-const CovidMap = ({patients, currentPatient, onMarkerClicked, onFetchPatients}) => {
+const CovidMap = ({onPatientMarkerClicked}) => {
+    const [patients, setPatients] = useState([]);
     useEffect(() => {
-        fetch("https://cors-anywhere.herokuapp.com/https://maps.vnpost.vn/apps/covid19/api/patientapi/list")
+        fetch("https://maps.vnpost.vn/apps/covid19/api/patientapi/list")
             .then(res => res.json())
-            .then((result) => {
-                    onFetchPatients(result.data);
+            .then(
+                (result) => {
+                    setPatients(result.data);
                 },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
                 (error) => {
-
+                    // setIsLoaded(true);
+                    // setError(error);
                 }
             )
-    }, []);
+    }, [])
+    return <Map center={[10.762887, 106.6800684]} zoom={13}>
+        <TileLayer
+            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.osm.org/{z}/{x}/{y}.png   "
+        />
+        {patients.map(patient => <Marker position={[patient.lat, patient.lng]} onClick={() => {onPatientMarkerClicked(patient)}}>
+            <Popup>
+                <ul>
+                    <li>Name: {patient.name}</li>
+                    <li>Address: {patient.address}</li>
+                    <li>Note: {patient.note}</li>
+                    <li>Verify date: {patient.verifyDate}</li>
+                </ul>
+            </Popup>
+        </Marker>)}
+    </Map>;
+};
 
-    let mapDefaultCoordinate = {
-        lat: 10.762622,
-        lng: 106.660172
-    };
-    if (currentPatient) {
-        mapDefaultCoordinate = {
-            lat: currentPatient.lat,
-            lng: currentPatient.lng
-        };
-        console.log(mapDefaultCoordinate);
-    }
-
-    const MapComponent = React.memo(compose(
-        withProps({
-            googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyAf6E1CQCl3XNMNjSE-YlGPfXXfrwX_Llg&libraries=geometry,drawing,places",
-            loadingElement: <div style={{height: '100%'}} />,
-            containerElement: <div style={{height: '969px'}} />,
-            mapElement: <div style={{height: '100%'}} />
-        }),
-        withScriptjs,
-        withGoogleMap
-    )((props) => {
-            return(
-                <GoogleMap defaultZoom={12} defaultCenter={mapDefaultCoordinate}>
-                    {patients.map((patient, offset) => (<Marker key={offset} position={{lat: patient.lat, lng: patient.lng}} onClick={() => {onMarkerClicked(patient)}}>
-                        {currentPatient == patient && <InfoWindow>
-                            <PatientInfo name={currentPatient.name} address={currentPatient.address} note={currentPatient.note} verifyDate={currentPatient.verifyDate} />
-                        </InfoWindow>}
-                    </Marker>))}
-                </GoogleMap>
-            );
-    }));
-
-    return <MapComponent />
-}
-
-export default React.memo(CovidMap);
+export default CovidMap;
