@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {Line} from 'react-chartjs-2'
 import axios from 'axios';
 
+
 const StatsVN = () => {
-    
     
     const [dataVN, setDataVN] = useState([]);
 
@@ -11,21 +11,14 @@ const StatsVN = () => {
             
         axios.get('https://td.fpt.ai/corona/corona-chart-vn.json')
         .then(function (response) {
-          
-          
-            setDataVN(response.data)
-          
+            setDataVN(response.data)  
         })
         .catch(function (error) {
-         
           console.log(error);
         })
         .then(function () {
-          
         });
      }, []);
-  
-  
      
     const ChartVN = () => (
         <div className="App">
@@ -33,7 +26,6 @@ const StatsVN = () => {
            <Line
             data = {
               {
-
                 labels:  Object.keys(dataVN).map((key)=>key),
                 datasets:[{
                       data: Object.keys(dataVN).map((key)=>dataVN[key][0]),
@@ -101,8 +93,7 @@ const StatsVN = () => {
               }
             }
            />
-        }
-      		
+        } 		
      </div>     
       );
       return <ChartVN></ChartVN>

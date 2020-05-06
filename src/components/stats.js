@@ -10,7 +10,6 @@ import Col from "react-bootstrap/Col";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const StaticDashboard = (props) => {
-
     return ( <Container>
          <h4>Line Chart</h4>
         <Row>
@@ -32,7 +31,7 @@ const StaticDashboard = (props) => {
             </Col>   
         </Row>
     </Container> 
-    )
+    );
 };
 
 export default StaticDashboard;

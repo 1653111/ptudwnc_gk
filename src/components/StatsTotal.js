@@ -3,7 +3,6 @@ import {Line} from 'react-chartjs-2'
 import axios from 'axios';
 
 
-
 const StatTotal = () => {
     const [dataTotal, setDataTotal] = useState([]);
 
@@ -20,8 +19,6 @@ const StatTotal = () => {
       
         <div className="App">
         {
-          
-        
            <Line
             data = {
               {
@@ -29,26 +26,6 @@ const StatTotal = () => {
                 datasets:[{
                       data: Object.keys(dataTotal).map((key)=>dataTotal[key][0]),
                       label:"Số ca nhiễm",               
-                      fill:true,
-                      lineTension: 0.1,
-                      borderColor: 'rgb(255, 255, 0)',
-                      borderCapStyle: 'butt',
-                      borderDash: [],
-                      borderDashOffset: 0.0,
-                      borderJoinStyle: 'miter',
-                      pointBorderColor: 'rgb(255, 255, 0)',
-                      pointBackgroundColor: '#fff',
-                      pointBorderWidth: 1,
-                      pointHoverRadius: 5,
-                      pointHoverBackgroundColor: 'rgb(255, 255, 0)',
-                      pointHoverBorderColor: 'rgb(255, 255, 0)',
-                      pointHoverBorderWidth: 2,
-                      pointRadius: 0.5,
-                      pointHitRadius: 10,
-                },
-                {
-                      data: Object.keys(dataTotal).map((key)=>dataTotal[key][1]),
-                      label:"Số ca tử vong",
                       fill:true,
                       lineTension: 0.1,
                       borderColor: 'rgb(255, 0, 0)',
@@ -62,6 +39,26 @@ const StatTotal = () => {
                       pointHoverRadius: 5,
                       pointHoverBackgroundColor: 'rgb(255, 0, 0)',
                       pointHoverBorderColor: 'rgb(255, 0, 0)',
+                      pointHoverBorderWidth: 2,
+                      pointRadius: 1,
+                      pointHitRadius: 10,
+                },
+                {
+                      data: Object.keys(dataTotal).map((key)=>dataTotal[key][1]),
+                      label:"Số ca tử vong",
+                      fill:true,
+                      lineTension: 0.1,
+                      borderColor: 'rgb(255, 255, 0)',
+                      borderCapStyle: 'butt',
+                      borderDash: [],
+                      borderDashOffset: 0.0,
+                      borderJoinStyle: 'miter',
+                      pointBorderColor: 'rgb(255, 255, 0)',
+                      pointBackgroundColor: '#fff',
+                      pointBorderWidth: 1,
+                      pointHoverRadius: 5,
+                      pointHoverBackgroundColor: 'rgb(255, 255, 0)',
+                      pointHoverBorderColor: 'rgb(255, 255, 0)',
                       pointHoverBorderWidth: 2,
                       pointRadius: 1,
                       pointHitRadius: 10,
@@ -92,10 +89,8 @@ const StatTotal = () => {
 
            />
 
-        }
-      		
-     </div>
-        
+        }		
+     </div>  
       );
       return <ChartTotal></ChartTotal>
 }

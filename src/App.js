@@ -3,7 +3,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col'
 import { Switch, Route, Link } from "react-router-dom";
-
 import logo from './logo.svg';
 import './App.css';
 import CovidGoogleMap from "./components/CovidGoogleMap";
@@ -19,10 +18,10 @@ function App() {
          <Row>
         
           <Col xs={6} >
-              <Link style={{ margin:10 ,fontSize:20, marginLeft:"40%" }} to="/map">Map</Link>
+              <Link style={{ margin:10 ,fontSize:30, marginLeft:"20%" }} to="/map">Map</Link>
           </Col>
           <Col xs={6}>
-            <Link style={{ margin:10 ,fontSize:20, marginLeft:"40%" }} to="/stats">Statistics</Link>
+            <Link style={{ margin:10 ,fontSize:30, marginLeft:"20%" }} to="/stats">Statistics</Link>
             </Col>
  
         <Switch>

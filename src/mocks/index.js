@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock';
 
-fetchMock.get('https://maps.vnpost.vn/apps/covid19/api/patientapi/list', {
+fetchMock.get('https://cors-anywhere.herokuapp.com/https://maps.vnpost.vn/apps/covid19/api/patientapi/list', {
     "code": "SUCCESS",
     "message": "Đã thực thi thành công",
     "data": [{
